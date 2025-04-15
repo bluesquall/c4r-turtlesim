@@ -47,6 +47,20 @@ ros2 run turtlesim turtlesim_node
 ```
 produces the simulator window with a random turtle in the center.
 
+Starting:
+```
+rqt
+```
+opens the graphical window, as expected.
+I can spawn a new turtle, change the color of its trail with `SetPen`,
+and teleoperate each of them by using separate `tmux` panes running:
+```
+ros2 turtlesim turtle_node
+```
+and
+```
+ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle1/cmd_vel:=raph/cmd_vel
+```
 _____________
 [tutorial-turtlesim]: https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html
 _____________

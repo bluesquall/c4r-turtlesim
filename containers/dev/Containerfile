@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install --yes \
   iputils-ping \
   picocom \
   socat \
+  tmux \
 && apt-get autoremove --yes && apt-get clean
 
 RUN setcap cap_net_raw+p /usr/bin/ping
