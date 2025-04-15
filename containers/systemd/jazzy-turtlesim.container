@@ -1,0 +1,23 @@
+[Container]
+Image=ghcr.io/bluesquall/c4r-turtlesim:jazzy-desktop-full
+ContainerName=turtlesim
+
+ExecStartPre=/bin/systemctl set-environment DEV_TTYADA=$(/usr/bin/find /dev/serial -iname '*Adafruit*' | /usr/bin/head -n1 | /usr/bin/readlink -fn -)
+
+# AutoUpdate=registry
+
+Network=host
+# PublishPort=8080:8080
+
+Volume=%h/src/c4r/turtlesim:/workspace:rw
+Volume=/tmp/.X11-unix:/tmp/X11-unix:rw
+Environment=DISPLAY
+
+# AddDevice=/dev/ttyACM0
+AddDevice=$DEV_TTYADA:/dev/ttyADA:rw
+
+[Service]
+Restart=no
+
+[Install]
+WantedBy=default.target
