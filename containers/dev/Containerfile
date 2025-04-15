@@ -1,0 +1,21 @@
+FROM docker.io/osrf/ros:jazzy-desktop-full
+
+RUN apt-get update && apt-get install --yes \
+  evtest \
+  iputils-ping \
+  picocom \
+  socat \
+&& apt-get autoremove --yes && apt-get clean
+
+RUN setcap cap_net_raw+p /usr/bin/ping
+# If you don't do ^this^ on a debian-based container,
+# you will need to add `--cap-add=NET_RAW`
+# to your `container run` command
+
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >>  $HOME/.bashrc
+
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+
+CMD ["/bin/bash"]
