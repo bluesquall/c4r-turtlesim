@@ -13,6 +13,13 @@ podman container run --rm -it \
   ghcr.io/bluesquall/c4r-turtlesim:jazzy-desktop-full
 ```
 
+### starting with quadlet via `systemd`
+> [!NOTE]
+> This seems a worthwhile avenue to explore, especially for containerized
+> services that need to start on boot on a robot runnning a distribution
+> that uses `systemd`. It may be less directly applicable to the graphical
+> application used in this example.
+
 ## tutorial-turtlesim
 
 Following along with [the official tutorial][tutorial-turtlesim]:

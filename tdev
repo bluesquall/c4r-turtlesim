@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# refer to:
+# - https://superuser.com/a/1507151
+
+project_name=c4r-sing-along
+project_path="$HOME/src/c4r/sing-along"
+git_origin="git@github.com:bluesquall/$project_name.git"
+
+tmux new-session -d -s $project_name
+
+if [[ ! -d $project_path ]]; then
+  tmux send-keys -t $project_name.0 "mkdir -p '$project_path'" Enter
+fi
+
+tmux send-keys -t $project_name.0 "pushd '$project_path'" Enter
+
+if [[ ! -d .git ]]; then
+  tmux send-keys -t $project_name.0 "git init" Enter
+  tmux send-keys -t $project_name.0 "git remote add origin $git_origin" Enter
+fi
+
+tmux send-keys -t $project_name:0 "tree -L 2" Enter
+tmux send-keys -t $project_name:0 "git remote -v && git status" Enter
+
+tmux split-window -v -t $project_name:0.0 -c "$project_path"
+tmux split-window -v -t $project_name:0.1 -c "$project_path"
+
+
+tmux attach -c $project_path -t $project_name
